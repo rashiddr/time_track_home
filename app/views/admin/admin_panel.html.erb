@@ -1,0 +1,48 @@
+<div class="row admins-list">
+	<div class="col-md-12"><h3>Manager Role</h3></div>
+	<% @user.each do |user|%>
+		<div class="col-md-3 col-sm-4 col-xs-6">
+			<div class="row input-padding">
+				<div class="col-md-12"><%= image_tag user.user_pic.url(:thumb),class:'img-responsive img-thumbnail' %></div>
+				<div class="col-md-12"><%= user.first_name%> <% user.last_name %></div>
+				<div class="col-md-12"><%= user.email %></div>
+			</div>
+		</div>
+	<% end %>
+</div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12"><h3>Extend Panel</h3></div>
+			<%= form_tag admin_panel_admin_index_path, :method => 'get',  class: "form-inline admin_panel_form", role:"form"  do %>
+				  <div class="form-group col-md-2 col-sm-4">
+				      <%= collection_select(:user,:ids, User.where(role: 1), :id, :first_name,{include_blank: "Select an user"},{class:'form-control'}) %>
+				  </div>
+				  <div class="col-md-2 col-sm-6"> 
+				  	<%= submit_tag "Add",class:'btn btn-primary form-control',id:'submit-btn' %>
+				  </div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<script>
+	$( "form" ).on( "submit", function( event ) {
+	  event.preventDefault();
+	  var valuesToSubmit = $(this).serialize();
+	  $.ajax({
+	  	type:'GET',
+	  	url:'/admin/admin_panel',
+	  	data: valuesToSubmit,
+	  	dataType: 'json',
+	  	success: function(result){
+	  		$(".admins-list").append("<%= j (render 'new_admin_elements') %>");
+	  		$(".user_photo").last().attr('src',result.user_pic_url);
+	  		$('.first_name').last().html(result.first_name);
+	  		$('.email').last().html(result.email);
+	  		$("#submit-btn").prop('disabled', false);
+	  	}
+	  });
+	});
+</script>
+
+

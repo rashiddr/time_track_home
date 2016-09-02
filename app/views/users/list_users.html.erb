@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-md-12 employe-heading"><h3>Registered Employees</h3></div>
+	<div class="col-md-12 sort-container">
+		<div class="row">
+			<div class="col-md-12"><span>Sort by&colon;</span></div>
+			<div class="col-md-12">
+				 <%= form_tag list_users_path, :method => 'get', class: "form-inline", role:"form", remote:true do %>
+				 	<%=label_tag :project_id,'Project'%>
+				 	<%=text_field_tag :project_id,nil,class:'form-control'%>
+				 	<%=submit_tag "Go" ,class: "btn btn-primary form-control"%>
+				 <%end%>
+			</div>
+		</div>
+	</div>
+	<div id="employe-search-result" class="employe-search-result">
+		<%= render 'employe-search-result' %>
+	</div>
+</div>
+<!-- Script for auto complete-->
+<script>
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#project_id" ).autocomplete({
+      source:'<%= projects_auto_complete_projects_projects_path(:json) %>'
+    });
+  } );
+  </script>

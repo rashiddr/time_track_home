@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+    	<div class="row">
+    		<div class="col-md-2 col-sm-4">
+    			<p><%= @daily_status.status_date %></p>
+    		</div>
+    		<div class="col-md-2 col-sm-4">
+    			<p><%= @daily_status.project.project_name%></p>
+    			<p><%= @daily_status.duration %> hours</p>
+    		</div>
+    		<div class="col-md-7 col-sm-12">
+    			<p><%= @daily_status.work_done %></p>
+    		</div>
+    		<div class="col-md-1 col-sm-1 col-xs-12">
+    			<div class="row">
+    				<div class="col-md-6 col-sm-6 col-xs-1">
+    					<p><%= link_to ('<span class="glyphicon glyphicon-blackboard"></span>').html_safe, daily_status_path(@daily_status)%>
+    					</p>
+    				</div>
+    				<div class="col-md-6 col-sm-6 col-xs-1">
+    					<p><%= link_to ('<span class="glyphicon glyphicon-pencil"></span>').html_safe, edit_daily_status_path(@daily_status)%>
+    					</p>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>

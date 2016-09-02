@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+        <h3 class="panel-title"><strong>Upcoming Trainings</strong></h3>
+    </div>
+    <div class="panel-group" id="accordion2">
+       <% @training.each do |training| %>
+		
+		    <div class="panel panel-default">
+		      	<div class="panel-heading">
+			        <h5 class="panel-title">
+			          <a data-toggle="collapse" data-parent="#accordion2" href="#collapse1_<%=training.id%>"><%= training.title %></a>
+			        </h5>
+		      	</div>
+		    	<div id="collapse1_<%=training.id%>" class="panel-collapse collapse">
+		    		<div class="panel-body">
+			    		<p>Who: <%= training.trainer %></p>
+			    		<p>When: <%= training.training_datetime %></p>
+			    		<p>Where: <%= training.location %></p>
+		    		</div>
+				</div>
+		    </div>
+		
+        <% end %>
+    </div>
+</div>

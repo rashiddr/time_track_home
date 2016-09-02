@@ -1,0 +1,59 @@
+<div class="col-md-12">
+  <% if @training.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@training.errors.count, "error") %> prohibited
+          this from being saved:
+        </h2>
+        <ul>
+          <% @training.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+</div>
+<div class="col-md-4">
+  <%= form_for @training do |f| %>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <%= f.label :Topic%><br>
+        <%= f.text_field :title, autofocus: true, required:true, class:'form-control' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= f.label :Trainer %><br>
+        <%= f.text_field :trainer, autofocus: true, required:true, class:'form-control' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= f.label :Training_date %><br>
+        <%= f.date_field :training_date, autofocus: true, required:true, class:'form-control' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= f.label :Time %><br>
+        <%= f.text_field :training_time, autofocus: true, required:true, class:'form-control timepicker' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= f.label 'Duration(in hours)' %><br>
+        <%= f.number_field :duration, in: 0.5..10, step: 0.25, autofocus: true,required:true, class:'form-control' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= f.label :Location %><br>
+        <%= f.text_field :location, autofocus: true, :required => true, class:'form-control' %>
+      </div>
+      <div class="form-group col-md-4">
+        <%= f.submit :submit, class: 'btn-primary btn-sm form-control'%>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+    $( function() {
+      $( "#training_training_date" ).datepicker({
+              changeMonth:true,
+              changeYear:true,
+              dateFormat:"yy-mm-dd",
+              minDate:0
+      });
+    } );
+    $('.timepicker').wickedpicker();
+  </script>

@@ -1,0 +1,45 @@
+<ul class="nav navbar-nav navbar-right right_nav1">
+    <li class="dropdown right_drop">
+        <a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            <strong class="username hidden-xs "><%= current_user.username %></strong>
+            <span class="glyphicon glyphicon-chevron-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="navbar-login">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <p class="text-center">
+                                <%= image_tag current_user.user_pic.url(:thumb) %>
+                            </p>
+                        </div>
+                        <div class="col-lg-8">
+                            <p class="text-left"><strong><%= current_user.first_name %> <%= current_user.last_name %></strong></p>
+                            <p class="text-left small"><%= current_user.email %></p>
+                            <p class="text-left">
+                                <%= link_to "Edit Profile", edit_profile_path, :class => 'btn btn-primary btn-block btn-sm'%>
+                            </p>
+                            <p class="text-left">
+                                <%= link_to "Change Password", edit_user_registration_path, :class => 'btn btn-primary btn-block btn-sm'%>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="divider navbar-login-session-bg"></li>
+            <li class="navbar-login-session-bg">
+                <div class="navbar-login navbar-login-session">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>
+                                <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => "btn btn-danger btn-block"%>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>

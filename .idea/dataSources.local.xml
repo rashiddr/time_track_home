@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails time_tracking_tool: test" uuid="ad6cb1ba-51ae-4164-bb9b-75ff2801fcb1">
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
+    <data-source name="Rails time_tracking_tool: development" uuid="ffde2ecc-d32a-460a-a170-3e041dacd973">
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
+    <data-source name="Rails time_tracking_tool: production" uuid="70f12f14-bf5a-435f-b0a1-c912db302508">
+      <first-sync>true</first-sync>
+      <user-name>time_tracking_tool</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffedfe3dfe7dfefdff5dffedff8dfebdfe9dfe1dfe3dfe4dfeddff5dffedfe5dfe5dfe6dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+  </component>
+</project>

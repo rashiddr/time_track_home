@@ -1,0 +1,78 @@
+
+<div class="row">
+  <div class="col-md-12"> 
+    <% if @daily_status.errors.any? %>
+          <h4>
+            <%= pluralize(@daily_status.errors.count, "error") %> prohibited
+            this from being saved:
+          </h4>
+          <% @daily_status.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <%= msg %>
+            </div>
+          <% end %>
+    <% end %>
+  </div>
+</div>
+<%= form_for @daily_status do |f| %>
+  <div class="row">
+      <div class="col-md-4 col-xs-7 col-sm-5">
+          <div class="field form-group">
+              <%= f.label :Date, class: "control-label" %><br>
+              <%= f.date_field :status_date, autofocus: true, required: true,class:'form-control'%>
+          </div>    
+      </div>
+      <div class="col-md-4 col-xs-7 col-sm-5">
+          <div class="field form-group">
+              <%= f.label :Project, class: "control-label" %><br>
+              <%= f.collection_select :project_id, Project.all, :id, :project_name, {}, {class: "form-control"}%><br/>
+          </div>    
+      </div>
+      <div class="col-md-4 col-xs-5 col-sm-2">
+          <div class="field form-group">
+              <%= f.label :Duration, class: "control-label" %><br>
+              <%= f.number_field :duration, in: 1.0..20.0, step: 0.5, value:'8',autofocus: true, required: true, class:'form-control' %>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="field col-md-6 col-xs-12 col-sm-8">
+        <div class="form-group">
+          <%= f.label :Activities, class: "control-label"  %><br>
+          <%= f.text_area :work_done, autofocus: true, size: "40x5",required: true,class: 'form-control',maxlength:'180' %>
+          <span id="characters"><span>
+        </div>
+      </div>
+  </div>
+  <div class="row bottom-padding">
+      <div class="col-md-2 col-sm-3">
+        <div class="actions">
+          <%= f.submit 'submit',class: 'btn-primary btn-sm form-control',id:'submit-btn' %>
+        </div>
+      </div>
+  </div>
+<% end %>
+<!-- Script for Date picker  -->
+<script>
+    $( function() {
+      $( "#daily_status_status_date" ).datepicker({
+              changeMonth:true,
+              changeYear:true,
+              dateFormat:"yy-mm-dd",
+              maxDate: 0,
+              minDate: ('-7D')
+      });
+    } );
+</script>
+<!-- Script for Reamining word count  -->
+<script>
+      $('textarea').keyup(updateCount);
+      $('textarea').keydown(updateCount);
+      function updateCount() {
+          var cs = $(this).val().length;
+          $('#characters').text(180-cs);
+      }
+</script>
+
+  

@@ -1,0 +1,29 @@
+<div class="row-fluid">
+  <div class="modal-content col-md-8 col-md-offset-2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><%=@user.first_name%> <%=@user.last_name%></h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-4"><%= image_tag @user.user_pic.url(:medium),class:'img-responsive img-thumbnail' %>
+              </div>
+              <div class="col-md-4 user-model">
+                  <pre>Emp Id: <%=@user.id%></pre>
+                  <pre>Role  : <%=@user.role%></pre>
+                  <pre>City  : <%=@user.place%></pre>
+                  <pre>Email : <%=@user.email%></pre>
+              </div>
+              <div class="col-md-4 user-model">
+                  <pre>Joined on    : <%=@user.created_at.to_date%></pre>
+                  <pre>Username     : <%=@user.username%></pre>
+                  <pre>Sign in count: <%=@user.sign_in_count %></pre>
+                  <pre>Last sign in : <%=time_ago_in_words(@user.current_sign_in_at)%> ago</pre>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+</div>

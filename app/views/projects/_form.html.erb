@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12"
+    <% if @project.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@project.errors.count, "error") %> prohibited
+            this project from being saved:
+          </h2>
+          <ul>
+            <% @project.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  </div>
+  <%= form_for @project, html:{role: "form",name: "new_project",onsubmit: "return validateForm()"} do |f| %>
+    <div class="form-group col-md-4">
+      <%= f.label :Project_name%><br>
+      <%= f.text_field :project_name, autofocus: true, :required => true,class:"form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :Client %><br>
+      <%= f.text_field :client, autofocus: true, :required => true, class:"form-control" %>
+     </div>
+    <div class="form-group col-md-4">
+     <%= f.label :Project_manager %><br>
+     <%= f.collection_select :project_manager, User.all, :id, :first_name,{include_blank:"select an employe"},{class:"form-control"} %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :Description %><br>
+      <%= f.text_area :description, autofocus: true, :required => true,  size: "40x5",class:'form-control' %>
+    </div>
+    <div class="form-group col-md-6">
+      <div class="row">
+        <div class="col-md-12"><%= f.label :Add_employees,'Add employees to project(optional)'  %></div>
+        <div class="col-md-12">
+            <%= f.nested_fields_for :user_projects do |ff| %>
+              <div class="row">
+                 <div class="col-md-10"><%= ff.collection_select :user_id, User.all, :id, :first_name,{include_blank:" select an employe "},{class:"form-control input-padding"} %></div>
+                 <div class="col-md-2"><%= ff.remove_nested_fields_link ('<span class="glyphicon glyphicon-remove nested-remove-button">Remove</span>').html_safe %></div>
+              </div>
+            <% end %>
+            <%= f.add_nested_fields_link :user_projects,('<span class="glyphicon glyphicon-plus">Add</span>').html_safe %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <%= f.submit :submit, class: 'btn-primary btn-sm',id:"form_submit"%>
+    </div>
+  <% end %>
+</div>
+<!-- script for submiting form when a project is selected-->
+<script>
+  function validateForm() {
+      var x = document.forms["new_project"]["project[project_manager]"].value;
+      if (x == null || x == "") {
+          alert("Please select a project manager");
+          return false;
+      }
+  }
+  $(document).ready(function () {
+
+      $('#new_project').on('mouseup blur', function () {
+          $('#form_submit').prop('disabled', false);
+      });
+
+});     
+</script>
+      

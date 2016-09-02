@@ -1,0 +1,28 @@
+<% if flash[:error] %>
+	<script>
+		var n = noty({
+		  			text: "<%= flash[:error]%>",
+		  			layout: 'topRight',
+		  			type: 'error',
+		  			timeout: 3000
+			  	});
+	</script>
+<% elsif flash[:success] %>
+	<script>
+		var n = noty({
+		  			text: "<%= flash[:success]%>",
+		  			layout: 'topRight',
+		  			type: 'success',
+		  			timeout: 3000
+			  	});
+	</script>
+<% elsif flash[:warning] %>
+	<script>
+		var n = noty({
+		  			text: "<%= flash[:warning]%>",
+		  			layout: 'top',
+		  			type: 'warning',
+		  			timeout: 3000
+			  	});
+	</script>
+<% end %>

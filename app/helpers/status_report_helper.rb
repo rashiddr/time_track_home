@@ -1,0 +1,2 @@
+module StatusReportHelper
+end

@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>Manage your projects</h3>
+	</div>
+	<div class="col-md-12">
+		<%= form_tag manage_projects_projects_path, :method => 'get', class: "form-inline select_project_form", role:"form",name:'manage_projects', id:"select_project" do %>
+				  <div class="form-group">
+				      <%= collection_select(:selected_project,:ids, Project.select_managers_projects(current_user.id), :id, :project_name,{include_blank:"please select a project"},{class:"form-control input-padding"}) %>
+				  </div>
+
+		<% end %>
+	</div>
+	<div class="col-md-12">
+		<%if @project.present?%>
+			<h4><%= @project.project_name%></h4>
+			<%= form_tag manage_projects_projects_path, :method => 'get', class: "form-inline", role:"form",name:'add_user',onsubmit: "return validateForm()", id:"add_user" do %>
+					  <div class="form-group">
+					      <%= collection_select(:user,:ids, User.select_available_users(@project.id), :id, :first_name,{include_blank:" select an employe "},{class:"form-control input-padding"}) %>
+					  </div>
+					  <%= hidden_field_tag 'project_id', @project.id %>
+
+					  <%= submit_tag "Add" ,class: "btn btn-primary project-add-button",id:"form_submit" %>
+			<% end %>
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered" >
+					<thead class="thead-default">
+					  <tr>
+						<td><strong>Employe Id</strong></td>
+						<td><strong>Name</strong></td>
+						<td><strong>Added on</strong></td>
+						<td></td>
+					  </tr>
+					</thead>
+					<tbody>
+						<% @users.each do |users| %>
+							<tr>
+								<td><%= users.user.id %></td>
+								<td><%= users.user.first_name %> </td>
+								<td><%= users.created_at%></td>
+								<td><%= link_to ('<span class="glyphicon glyphicon-remove">Remove</span>').html_safe, remove_employe_from_project_projects_path(user_project_id: users.id),
+			            			data: {:confirm => 'Are you sure?'} %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<%= will_paginate @users,:params => { :selected_project => {:ids => @project.id} }%>
+		<%else%>
+			<div class="alert alert-info">
+  				No project selected
+			</div>
+		<%end%>
+	</div>
+
+</div>
+
+<script>
+	function validateForm() {
+	    var x = document.forms["add_user"]["user[ids]"].value;
+	    if (x == null || x == "") {
+	        alert("Please select a user");
+	        return false;
+	    }
+	}
+	$(document).ready(function () {
+
+	    $('#user_ids').on('mouseup blur', function () {
+	        $('#form_submit').prop('disabled', false);
+	    });
+	$(function() {
+	   $(".select_project_form").change(function() {
+	     $(".select_project_form").submit();
+	   });
+ });
+
+});    
+</script>

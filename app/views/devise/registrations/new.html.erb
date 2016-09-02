@@ -1,0 +1,189 @@
+<div class="top-margin"></div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11"><h2>Sign up</h2></div>
+     
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'data-toggle': 'validator', role: 'form'}) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <div class="form-group has-feedback">
+              <%= f.label :Firstname, class: "control-label" %><br />
+              <%= f.text_field :first_name, autofocus: true, :required => true,class:'form-control',data: { error: "First name required"}%>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="field form-group has-feedback">
+              <%= f.label :Lastname, class: "control-label" %><br />
+              <%= f.text_field :last_name, autofocus: true, :required => true,class:'form-control',data: {error: "Lastname Required"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+             
+            <div class="field form-group has-feedback">
+              <%= f.label :Location, class: "control-label" %><br />
+              <%= f.text_field :place, autofocus: true, :required => true,class:'form-control',data: {error: "Location Required"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="field form-group has-feedback">
+              <%= f.label :Date_of_Birth, class: "control-label" %><br />
+              <%= f.date_field(:dob, autofocus: true, :required => true,class:'form-control',data: {error: "Date of birth Required"}) %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="field form-group has-feedback">
+              <%= f.label :Profile_Photo, class: "control-label" %><br />
+              <%= f.file_field :user_pic, autofocus: true, class:'form-control',id:'files' %>
+              <output id="list"></output>
+              <div id="progress_bar"><div class="percent">0%</div></div>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="field form-group has-feedback">
+              <%= f.label :username %><br />
+              <%= f.text_field :username, autofocus: true, :required => true, class:'form-control',data: { minlength:6,error: "Atleast 6 characters required"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="field form-group has-feedback">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, :required => true,class:'form-control',data: { error: "Invalid email format"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+           
+            <div class="field form-group has-feedback">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "off", :required => true,class:'form-control', id: "inputPassword", pattern: "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}", data: { error: "Minimum 6  letters long and must contain at least one number, one uppercase, and lowercase letter"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="field form-group has-feedback">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", :required => true,class:'form-control',data: { match: "#inputPassword", error: "Passwords do not match"} %>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="actions sign-up-button">
+              <%= f.submit "Sign up",class: 'btn btn-sm btn-primary' %>
+            </div>
+            <%= render "devise/shared/links" %>
+        </div>
+    <% end %>
+</div>
+<div class="bottom-margin"></div>
+<script>
+    $( function() {
+      $( "#user_dob" ).datepicker({
+              changeMonth:true,
+              changeYear:true,
+              dateFormat:"yy-mm-dd",
+              yearRange: '1960:2005',
+              maxDate:('-15Y')
+      });
+    } );
+</script>
+<script>//script for loading image on selecting
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')){
+        $("#files").val('');
+        alert('Please select an image file');
+        var elem = document.getElementById('image_prv');
+        elem.parentNode.removeChild(elem); 
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.getElementById('list');
+          span.innerHTML = ['<img class="thumb_pic" id="image_prv" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+<script>//script for progress bar
+  var reader;
+  var progress = document.querySelector('.percent');
+
+  function abortRead() {
+    reader.abort();
+  }
+
+  function errorHandler(evt) {
+    switch(evt.target.error.code) {
+      case evt.target.error.NOT_FOUND_ERR:
+        alert('File Not Found!');
+        break;
+      case evt.target.error.NOT_READABLE_ERR:
+        alert('File is not readable');
+        break;
+      case evt.target.error.ABORT_ERR:
+        break; // noop
+      default:
+        alert('An error occurred reading this file.');
+    };
+  }
+
+  function updateProgress(evt) {
+    // evt is an ProgressEvent.
+    if (evt.lengthComputable) {
+      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+      // Increase the progress bar length.
+      if (percentLoaded < 100) {
+        progress.style.width = percentLoaded + '%';
+        progress.textContent = percentLoaded + '%';
+      }
+    }
+  }
+
+  function handleFileSelect(evt) {
+    // Reset progress indicator on new file selection.
+    progress.style.width = '0%';
+    progress.textContent = '0%';
+
+    reader = new FileReader();
+    reader.onerror = errorHandler;
+    reader.onprogress = updateProgress;
+    reader.onabort = function(e) {
+      alert('File read cancelled');
+    };
+    reader.onloadstart = function(e) {
+      document.getElementById('progress_bar').className = 'loading';
+    };
+    reader.onload = function(e) {
+      // Ensure that the progress bar displays 100% at the end.
+      progress.style.width = '100%';
+      progress.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar').className='';", 2000);
+    }
+
+    // Read in the image file as a binary string.
+    reader.readAsBinaryString(evt.target.files[0]);
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>

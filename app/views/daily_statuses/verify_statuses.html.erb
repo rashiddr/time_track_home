@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-12"><h3>Daily statuses</h3></div>
+  <%= form_tag verify_statuses_daily_statuses_path, :method => 'get', class: "form-inline", role:"form"  do %>
+    <div class="form-group col-md-4 input-padding">
+        <label>Date</label>
+        <%= date_field_tag :search_date, params[:search_date],class:'form-control input-padding'%>
+    </div>
+    <div class="form-group col-md-4 input-padding">
+        <label>Name</label>
+        <%= collection_select(:user,:user_id, User.all, :id, :first_name,{include_blank:"select an employe"}, {class: "form-control input-padding"}) %>
+    </div>
+    <div class="form-group col-md-2 input-padding">
+      <%= submit_tag "Search" ,class: "btn btn-primary form-control input-padding" %>
+    </div>
+  <% end %>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        	<thead class="thead-default">
+        		<tr>
+        			<th>Date</th>
+        			<th>Name</th>
+        			<th>Project</th>
+        			<th>Duration</th>
+        			<th>Activity</th>
+        			<th>Created at</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<%@daily_status.each do |daily_status| %>
+            	  <tr>
+            			<td><%= daily_status.status_date %></td> 
+            			<td><%= daily_status.user.first_name %>  <%= daily_status.user.last_name %></td>
+            			<td><%= daily_status.project.project_name %></td>
+            			<td><%= daily_status.duration %></td>
+            			<td><%= daily_status.work_done %></td>
+            			<td><%= daily_status.created_at %></td>
+            		</tr>
+        		<% end %>
+        	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+    $( function() {
+      $( "#search_date" ).datepicker({
+              changeMonth:true,
+              changeYear:true,
+              dateFormat:"yy-mm-dd",
+              maxDate:0
+      });
+    } );
+  </script>

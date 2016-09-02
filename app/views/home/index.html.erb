@@ -1,0 +1,103 @@
+
+<div class="row">
+    <div class="col-md-12"><h2>Dashboard</h2></div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12 new_project">
+                <%= render "projects/list_projects" %>
+            </div>
+            <div class="col-md-12 upcoming_training">
+                <%= render "trainings/latest_training" %>
+            </div>
+            <div class="col-md-12 upcoming_birthday">
+                <%= render template: "users/birthdays" %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12 world_clock hidden-xs hidden-sm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>World Clock</strong></h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 clock_top">
+                            <div id="clock_india"></div>
+                            <div id="clock_poland"></div>
+                            <div id="clock_tokyo"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 clock_bottom">
+                            <div id="clock_london"></div>
+                            <div id="clock_us"></div>
+                            <div id="clock_uk"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-12 new_joiners">
+                <%= render template: "users/new_joiners" %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  script for world clock -->
+<script>
+            $(document).ready(function(){
+                $('#clock_poland').jClocksGMT(
+                    {
+                        title: 'Warsaw, Poland', 
+                        offset: '+2',
+                        skin:1,
+                        date:true,
+                        dateformat: 'DD/MM/YYYY'
+                    });
+
+                    $('#clock_india').jClocksGMT(
+                    {
+                        title: 'New Delhi, India', 
+                        offset: '+5.5', 
+                        date:true,
+                        skin: 1, 
+                        dateformat: 'DD/MM/YYYY'
+                    });
+                    $('#clock_tokyo').jClocksGMT(
+                    {   
+                        title: 'Tokyo, Japan',
+                        offset: '+9',
+                        skin: 1,
+                        date:true,
+                        dateformat: 'DD/MM/YYYY'
+                    });
+                    $('#clock_london').jClocksGMT(
+                    {
+                        title: 'London, UK', 
+                        offset: '+1', 
+                        skin: 1, 
+                        date: true,
+                        dateformat: 'DD/MM/YYYY'
+                    });
+                    $('#clock_us').jClocksGMT(
+                    {
+                        title: 'New York, USA', 
+                        offset: '-4', 
+                        skin: 1, 
+                        date: true,
+                        dateformat: 'DD/MM/YYYY'
+                    });
+                    $('#clock_uk').jClocksGMT(
+                    {   
+                        title: 'Dubai, UAE',
+                        offset: '+4',
+                        date: true, 
+                        dateformat: 'DD/MM/YYYY', 
+                        skin: 1
+                    });
+
+                
+            });
+</script>

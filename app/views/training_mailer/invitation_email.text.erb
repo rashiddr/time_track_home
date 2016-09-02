@@ -1,0 +1,7 @@
+
+Hi <%=@user.first_name%> <%=@user.last_name%>,
+ You are invited to attend a session on <%=@training.title%> by <%=@training.trainer%>
+ This session will take place on <%= @training.training_datetime.to_date %> <%= @training.training_datetime.strftime("%I:%M %p") + " to " + (@training.training_datetime + @training.duration).strftime("%I:%M %p") %>  at <%= @training.location%>
+ <%= link_to 'Visit us for more details..',training_url(@training) %>
+ Thanks,
+ QBurst Space

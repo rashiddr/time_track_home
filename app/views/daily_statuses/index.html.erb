@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col-md-12"><h2>Daily Status</h2></div>
+	<div class="col-md-12 new-status-form">
+		<%= render 'form' %>
+	</div>
+	<div class="col-md-12 status_index" id="status_index">
+		<%= render 'index' %>
+	</div>
+</div>
+
+
+<script>
+	$( "form" ).on( "submit", function( event ) {
+	  event.preventDefault();
+	  var valuesToSubmit = $(this).serialize();
+	  $.ajax({
+	  	type:'GET',
+	  	url:'/daily_statuses/add_status',
+	  	data: valuesToSubmit,
+	  	dataType: 'html',
+	  	success: function(result){
+	  		if(result=='failed'){
+	  			var n = noty({
+		  			text: 'Status for this project is already submited!',
+		  			layout: 'topRight',
+		  			type: 'error',
+		  			timeout: 3000
+			  	});
+	  			
+	  		}
+	  		else{
+		  		$("#status_index").prepend(result);
+		  		var n = noty({
+		  			text: 'Daily status addedd successfully!',
+		  			layout: 'topRight',
+		  			type: 'success',
+		  			timeout: 3000,
+			  	});
+	  		}
+	  	}
+	  });
+	  $("#submit-btn").prop('disabled', false);
+	  $('form')[0].reset();
+	});
+</script>
+

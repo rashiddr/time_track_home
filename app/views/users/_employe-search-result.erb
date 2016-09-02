@@ -1,0 +1,20 @@
+<div class="col-md-12"><%=will_paginate @user%></div>
+<% @user.each do |user| %>
+	<%= link_to show_user_path(user), {:remote => true, 'data-toggle': 'modal', 'data-target': '#modal-window'} do%>
+		<div class="col-md-4 col-sm-6 employe-container">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-xs-6">
+					<%= image_tag user.user_pic.url(:thumb),class:'img-responsive img-thumbnail' %>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6 user-details">
+					<div class="row">
+						<div class="col-md-12"><%= user.first_name %> <%= user.last_name %></div>
+						<div class="col-md-12"><%= user.email%></div>
+						<div class="col-md-12"><%= user.role%></div>
+						<div class="col-md-12"> Joined on: <%= user.created_at.to_date %></div>
+					</div>
+				</div>
+			</div>				
+		</div>
+	<%end%>
+<% end %>

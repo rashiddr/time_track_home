@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= favicon_link_tag 'favicon.ico'%>
+    <title>Time Tracking</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'nav-style', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+    <header>
+        <div class="container-fluid">
+            <div class="row"> 
+                <div class="col-md-10 col-xs-12" >
+                    <%= link_to root_path, :class => "logo_link" do %>
+                        <%= image_tag("logo.png", :alt => "logo", :class => "logo") %>
+                    <% end %>
+                </div>
+                <div class="col-md-2 col-xs-12 pull-right">
+                    <% if user_signed_in? %>
+                        <%= render 'layouts/header_dropdown'%>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </header>  
+    <% if user_signed_in? %>
+        <% if current_user.role =='employe'%>
+            <%= render 'layouts/employe_nav'%>
+         <%else%>
+            <%= render 'layouts/admin_nav' %>
+        <% end %>
+    <% end %>
+    <div class="container-fluid">
+        <div class="row main-padding">
+            <div class="col-md-10 col-sm-12 col-xs-12">
+                <%=render 'layouts/flash_messages'%>
+                <%= yield %> 
+            </div>
+        </div>
+    </div>
+    <div class="modal fade model-container" id="modal-window" role="dialog"><div class="modal-dialog"></div></div>
+</body>
+</html>

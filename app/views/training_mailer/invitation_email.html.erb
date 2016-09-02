@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Hi <%=@user.first_name%> <%=@user.last_name%>,</h4>
+    <p> You are invited to attend a session on <b><%=@training.title%></b> by <b><%=@training.trainer%></b>.</p>
+	  <p>This session will take place on <b><%= @training.training_datetime.to_date %> <%= @training.training_datetime.strftime("%I:%M %p") + " to " + (@training.training_datetime + @training.duration).strftime("%I:%M %p") %> </b> at <b><%= @training.location%></b></p> 
+	  <p><%= link_to 'Visit us for more details..',training_url(@training) %></p>
+	  <p>Thanks,</p> 
+	  <p>QBurst Space</p>
+    </p>
+  </body>
+</html>
+
+
+

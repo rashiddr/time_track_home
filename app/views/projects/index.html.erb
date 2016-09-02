@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-md-12"><h3>Projects</h3></div>
+	<div class="col-md-12">
+		<h4 class="pull-right"><%= link_to ('<span class="glyphicon glyphicon-plus">New</span>').html_safe,new_project_path, class: "btn btn-sm btn-primary"%></h4>
+	</div>
+	<div class="col-md-12">
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered" >
+				<thead class="thead-default">
+				  <tr>
+					<td><strong>Project name</strong></td>
+					<td><strong>Client</strong></td>
+					<td><strong>Project Manager</strong></td>
+					<td><strong>Description</strong></td>
+					<td></td>
+				  </tr>
+				</thead>
+				<tbody>
+				<% @project.each do |project| %>
+					<tr>
+						<td><%= project.project_name %></td>
+						<td><%= project.client %></td>
+						<td><%= project.project_head.first_name %>
+						<%= project.project_head.last_name
+						 %></td>
+						<td><%= project.description %></td>
+						<td>
+							<div class="row">
+								<div class="col-md-12">
+									<%= link_to ('<span class="glyphicon glyphicon-blackboard">Show</span>').html_safe, project_path(project) %>
+								</div>
+								<div class="col-md-12">
+									 <%= link_to ('<span class="glyphicon glyphicon-pencil">Edit</span>').html_safe,edit_project_path(project) %>
+								</div>
+								<div class="col-md-12">
+									 <%= link_to ('<span class="glyphicon glyphicon-remove">Delete</span>').html_safe,project_path(project), method: :delete, data: { confirm: 'Do you really want to delete this project?' },remote:true,class:'destroy_project' %>
+								</div>
+							</div>
+						</td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+			<%= will_paginate @project %>
+		</div>
+	</div>
+	
+</div>
